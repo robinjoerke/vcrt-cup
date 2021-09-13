@@ -1,9 +1,12 @@
-import {RiderRaceResult} from "../stores/races/types";
+import {
+    RiderRaceResult,
+    RiderSeriesResult
+} from "../stores/races/types";
 import {Table} from "react-bootstrap";
 import {sec2time} from "../stores/races/dataConversion";
 import React from "react";
 
-export const CatGCTable = (props: { title: string, gc: RiderRaceResult[], id?: string }) => {
+export const CatGreenJerseyTable = (props: { title: string, gc: RiderSeriesResult[], id?: string }) => {
     let leaderTime = 0;
     if (props.gc.length > 0) {
         leaderTime = props.gc[0].time;
@@ -17,10 +20,8 @@ export const CatGCTable = (props: { title: string, gc: RiderRaceResult[], id?: s
             <tr>
                 <th>#</th>
                 <th>Name</th>
-                <th>Time</th>
-                <th>time to leader</th>
                 <th>Sprint Points</th>
-                <th>Kom Points</th>
+                <th>Races</th>
             </tr>
             </thead>
             <tbody>
@@ -29,10 +30,8 @@ export const CatGCTable = (props: { title: string, gc: RiderRaceResult[], id?: s
                     <tr>
                         <th scope={"row"}>{i + 1}</th>
                         <td dangerouslySetInnerHTML={{__html: riderRaceResult.name}}/>
-                        <td>{sec2time(riderRaceResult.time)}</td>
-                        <td>{riderRaceResult.time === leaderTime ? '-' : sec2time(riderRaceResult.time - leaderTime)}</td>
                         <td>{riderRaceResult.sprintPoints}</td>
-                        <td>{riderRaceResult.komPoints}</td>
+                        <td>{riderRaceResult.totalRaces}</td>
                     </tr>
                 )
             }

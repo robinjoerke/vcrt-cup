@@ -31,8 +31,8 @@ export const CatGCTable = (props: { title: string, gc: RiderRaceResult[], id?: s
                         <td dangerouslySetInnerHTML={{__html: riderRaceResult.name}}/>
                         <td>{sec2time(riderRaceResult.time)}</td>
                         <td>{riderRaceResult.time === leaderTime ? '-' : sec2time(riderRaceResult.time - leaderTime)}</td>
-                        <td>{riderRaceResult.sprintPoints}</td>
                         <td>{riderRaceResult.komPoints}</td>
+                        <td>{riderRaceResult.sprintPoints}</td>
                     </tr>
                 )
             }

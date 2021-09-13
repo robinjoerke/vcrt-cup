@@ -1,0 +1,107 @@
+@import "~bootstrap/scss/functions";
+$blue: #18769e;
+$pink: #ea3fa8;
+$green: #50af3c;
+$purple: #290f85;
+$yellow: #f8d047;
+$red: #d21900;
+
+$white:    #fff;
+$black:    #000;
+
+$base-gray: #777a7f;
+
+$gray-100: shift-color($base-gray, -90%);
+$gray-200: shift-color($base-gray,-75%);
+$gray-300: shift-color($base-gray, -50%);
+$gray-400: shift-color($base-gray, -25%);
+$gray-500: $base-gray;
+$gray-600: shift-color($base-gray, 25%);
+$gray-700: shift-color($base-gray, 50%);
+$gray-800: shift-color($base-gray, 80%);
+$gray-900: shift-color($base-gray, 90%);
+/*$gray-100: #F5F6F6;
+$gray-200: #E7E8E9;
+$gray-300: #CED1D4;
+$gray-400: #B6BABF;
+$gray-500: #9EA3A9;
+$gray-600: #7F8488;
+$gray-700: #5D6164;
+$gray-800: #2B2D2E;
+$gray-900: mix($gray-800,$black, 50%);*/
+
+$primary: $purple;
+$secondary: $pink;
+$success: $green;
+$info: $blue;
+$warning: $yellow;
+$danger: $red;
+$light: $gray-100;
+$dark: $gray-700;
+$gray: $gray-500;
+
+
+
+$primary-100: shift-color($primary, -90%);
+$primary-200: shift-color($primary,-75%);
+$primary-300: shift-color($primary, -50%);
+$primary-400: shift-color($primary, -25%);
+$primary-500: $primary;
+$primary-600: shift-color($primary, 25%);
+$primary-700: shift-color($primary, 50%);
+$primary-800: shift-color($primary, 75%);
+$primary-900: shift-color($primary, 90%);
+
+$secondary-100: shift-color($secondary, -90%);
+$secondary-200: shift-color($secondary,-75%);
+$secondary-300: shift-color($secondary, -50%);
+$secondary-400: shift-color($secondary, -25%);
+$secondary-500: $secondary;
+$secondary-600: shift-color($secondary, 25%);
+$secondary-700: shift-color($secondary, 50%);
+$secondary-800: shift-color($secondary, 75%);
+$secondary-900: shift-color($secondary, 90%);
+
+$success-100: shift-color($success, -90%);
+$success-200: shift-color($success,-75%);
+$success-300: shift-color($success, -50%);
+$success-400: shift-color($success, -25%);
+$success-500: $success;
+$success-600: shift-color($success, 25%);
+$success-700: shift-color($success, 50%);
+$success-800: shift-color($success, 75%);
+$success-900: shift-color($success, 90%);
+
+$info-100: shift-color($info, -90%);
+$info-200: shift-color($info,-75%);
+$info-300: shift-color($info, -50%);
+$info-400: shift-color($info, -25%);
+$info-500: $info;
+$info-600: shift-color($info, 25%);
+$info-700: shift-color($info, 50%);
+$info-800: shift-color($info, 75%);
+$info-900: shift-color($info, 90%);
+
+$warning-100: shift-color($warning, -90%);
+$warning-200: shift-color($warning,-75%);
+$warning-300: shift-color($warning, -50%);
+$warning-400: shift-color($warning, -25%);
+$warning-500: $warning;
+$warning-600: shift-color($warning, 25%);
+$warning-700: shift-color($warning, 50%);
+$warning-800: shift-color($warning, 75%);
+$warning-900: shift-color($warning, 90%);
+
+$danger-100: shift-color($danger, -90%);
+$danger-200: shift-color($danger,-75%);
+$danger-300: shift-color($danger, -50%);
+$danger-400: shift-color($danger, -25%);
+$danger-500: $danger;
+$danger-600: shift-color($danger, 25%);
+$danger-700: shift-color($danger, 50%);
+$danger-800: shift-color($danger, 75%);
+$danger-900: shift-color($danger, 90%);
+
+// The contrast ratio to reach against white, to determine if color changes from "light" to "dark". Acceptable values for WCAG 2.0 are 3, 4.5 and 7.
+// See https://www.w3.org/TR/WCAG20/#visual-audio-contrast-contrast
+$min-contrast-ratio: 4.5;

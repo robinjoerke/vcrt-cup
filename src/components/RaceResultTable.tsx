@@ -1,12 +1,16 @@
-import {RiderRaceResult} from "../stores/races/types";
+import {
+    Cat,
+    RiderRaceResult
+} from "../stores/races/types";
 import {Table} from "react-bootstrap";
 import {sec2time} from "../stores/races/dataConversion";
 import React from "react";
 
-export const CatGCTable = (props: { title: string, gc: RiderRaceResult[], id?: string }) => {
+export const RaceResultTable = (props: { title: string, raceResult: RiderRaceResult[], cat: Cat, id?: string }) => {
+    const result = props.raceResult.filter(x => x.cat === props.cat)
     let leaderTime = 0;
-    if (props.gc.length > 0) {
-        leaderTime = props.gc[0].time;
+    if (result.length > 0) {
+        leaderTime = result[0].time;
     }
 
 
@@ -25,7 +29,8 @@ export const CatGCTable = (props: { title: string, gc: RiderRaceResult[], id?: s
             </thead>
             <tbody>
             {
-                props.gc.map((riderRaceResult, i) =>
+                result
+                    .map((riderRaceResult, i) =>
                     <tr>
                         <th scope={"row"}>{i + 1}</th>
                         <td dangerouslySetInnerHTML={{__html: riderRaceResult.name}}/>

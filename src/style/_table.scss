@@ -1,0 +1,28 @@
+@import "colors";
+
+$table-cell-padding-y:        .5rem;
+$table-cell-padding-x:        .5rem;
+$table-cell-padding-y-sm:     .25rem;
+$table-cell-padding-x-sm:     .25rem;
+
+$table-cell-vertical-align:   top;
+
+$table-color:                 $warning;
+$table-bg:                    $pink; //hover
+$table-accent-bg:             $primary-600; //odd lines
+
+$table-th-font-weight:        null;
+
+$table-striped-color:         $warning;
+// $table-striped-bg-factor:     .05;
+$table-striped-bg:            $primary-400; //even lines
+
+$table-active-color:          $table-color;
+$table-active-bg-factor:      .1;
+$table-active-bg:             rgba($black, $table-active-bg-factor);
+
+$table-hover-color:           $table-color;
+$table-hover-bg-factor:       .075;
+$table-hover-bg:              rgba($black, $table-hover-bg-factor);
+
+$table-border-color:          $warning;
