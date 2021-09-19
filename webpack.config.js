@@ -1,9 +1,9 @@
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
-var isProduction =
-    process.argv.indexOf('-p') >= 0 || process.env.NODE_ENV === 'production';
+var isProduction =  process.argv.indexOf('-p') >= 0 || process.env.NODE_ENV === 'production';
 
 module.exports = {
     mode: 'none',
@@ -57,6 +57,9 @@ module.exports = {
 
         new MiniCssExtractPlugin({
             filename: 'resources/[contenthash].css',
+        }),
+        new webpack.DefinePlugin({
+            'process.env.NODE_ENV': isProduction ? JSON.stringify('production'):  JSON.stringify('development')
         }),
     ],
     devServer: {

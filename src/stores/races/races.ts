@@ -3,8 +3,7 @@ import {race1} from "./raw/race1";
 import {
     calculateGC,
     calculateGreenJersey,
-    caluclatePolkaDotJersey,
-    getRiders
+    caluclatePolkaDotJersey
 } from "./dataConversion";
 import {
     RaceSeries,
@@ -19,7 +18,7 @@ export const races = [
         ...race1,
         finished: true,
         specification: {
-            title: 'Race 1: Watopia foo',
+            title: 'Race 1: Watopia Figure 8',
             finish: {
                 primeCat: "SPRINT",
                 points: defaultFinishPoints,
@@ -46,7 +45,7 @@ export const races = [
         ...race2,
         finished: true,
         specification: {
-            title: 'Race 2: Watopia bar',
+            title: 'Race 2: Watopia Flat',
             finish: {
                 primeCat: "SPRINT",
                 points: defaultFinishPoints,
@@ -67,7 +66,7 @@ export const races = [
     {
         finished: false,
         specification: {
-            title: 'Race 2: Watopia bar',
+            title: 'Race 3: Watopia Seaside Sprint',
             finish: {
                 primeCat: "SPRINT",
                 points: defaultFinishPoints,
@@ -76,11 +75,22 @@ export const races = [
             primeSpecification: {
                 sprint: [{
                     name: 'Watopia Sprint Forward',
-                    lap: 2,
+                    lap: 1,
                     type: 'FAL',
-                    factor: 2,
-                    bonus: [3, 2, 1]
-                }],
+                    factor: 1,
+                },
+                    {
+                        name: 'Watopia Sprint Forward',
+                        lap: 2,
+                        type: 'FAL',
+                        factor: 1,
+                    },
+                    {
+                        name: 'Watopia Sprint Forward',
+                        lap: 3,
+                        type: 'FAL',
+                        factor: 1,
+                    }],
                 kom: [] as unknown[],
             }
         }

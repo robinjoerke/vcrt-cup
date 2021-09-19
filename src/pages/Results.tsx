@@ -27,37 +27,81 @@ import {
 import {CatGreenJerseyTable} from "../components/CatGreenJerseyTable";
 import {CatPolkaDotJerseyTable} from "../components/CatPolkaDotJerseyTable";
 
-export const Results = () => {
-
+export const ResultsA = () => {
     return <>
+        <Navigation/>
         <Container>
-            <About/>
-            <h3 id={'cup'}>VCRT Cup</h3>
+            <h2>Cat A Result</h2>
             <CatGCTable id={'cup-results-a'} title={'Cat A GC'} gc={gcA}/>
-            <CatGCTable id={'cup-results-b'} title={'Cat B GC'} gc={gcB}/>
-            <CatGCTable id={'cup-results-c'} title={'Cat C GC'} gc={gcC}/>
-            <CatGCTable id={'cup-results-d'} title={'Cat D GC'} gc={gcD}/>
             <CatGreenJerseyTable title={'Cat A Sprint Ranking'} gc={greenJerseyA} />
-            <CatGreenJerseyTable title={'Cat B Sprint Ranking'} gc={greenJerseyB} />
-            <CatGreenJerseyTable title={'Cat C Sprint Ranking'} gc={greenJerseyC} />
-            <CatGreenJerseyTable title={'Cat D Sprint Ranking'} gc={greenJerseyD} />
             <CatPolkaDotJerseyTable title={'Cat A KOM Ranking'} gc={polkaDotJerseyA} />
-            <CatPolkaDotJerseyTable title={'Cat B KOM Ranking'} gc={polkaDotJerseyB} />
-            <CatPolkaDotJerseyTable title={'Cat C KOM Ranking'} gc={polkaDotJerseyC} />
-            <CatPolkaDotJerseyTable title={'Cat D KOM Ranking'} gc={polkaDotJerseyD} />
             <h3 id={'cup-by-race'}>VCRT Cup Races</h3>
             {
-                vcrtCupSeason1.races.map(race =>
+                vcrtCupSeason1.races.filter(r => r.finished).map(race =>
                     <>
                         <h4>{race.specification.title}</h4>
                         <RaceResultTable title={`Cat A`} cat={'A'} raceResult={calculateSingleRaceResult(race)} />
-                        <RaceResultTable title={`Cat B`} cat={'B'} raceResult={calculateGC({totalRaces: 1, finishedRaces: 1, races: [race]})} />
-                        <RaceResultTable title={`Cat C`} cat={'C'} raceResult={calculateGC({totalRaces: 1, finishedRaces: 1, races: [race]})} />
-                        <RaceResultTable title={`Cat D`} cat={'D'} raceResult={calculateGC({totalRaces: 1, finishedRaces: 1, races: [race]})} />
                     </>)
             }
         </Container>
     </>
-
 }
+export const ResultsB = () => {
+    return <>
+        <Navigation/>
+        <Container>
+            <h2>Cat B Result</h2>
+            <CatGCTable id={'cup-results-b'} title={'Cat B GC'} gc={gcB}/>
+            <CatGreenJerseyTable title={'Cat B Sprint Ranking'} gc={greenJerseyB} />
+            <CatPolkaDotJerseyTable title={'Cat B KOM Ranking'} gc={polkaDotJerseyB} />
+            <h3 id={'cup-by-race'}>VCRT Cup Races</h3>
+            {
+                vcrtCupSeason1.races.filter(r => r.finished).map(race =>
+                    <>
+                        <h4>{race.specification.title}</h4>
+                        <RaceResultTable title={`Cat B`} cat={'B'} raceResult={calculateSingleRaceResult(race)} />
+                    </>)
+            }
+        </Container>
+    </>
+}
+export const ResultsC = () => {
+    return <>
+        <Navigation/>
+        <Container>
+            <h2>Cat C Result</h2>
+            <CatGCTable id={'cup-results-c'} title={'Cat C GC'} gc={gcC}/>
+            <CatGreenJerseyTable title={'Cat C Sprint Ranking'} gc={greenJerseyC} />
+            <CatPolkaDotJerseyTable title={'Cat C KOM Ranking'} gc={polkaDotJerseyC} />
+            <h3 id={'cup-by-race'}>VCRT Cup Races</h3>
+            {
+                vcrtCupSeason1.races.filter(r => r.finished).map(race =>
+                    <>
+                        <h4>{race.specification.title}</h4>
+                        <RaceResultTable title={`Cat C`} cat={'C'} raceResult={calculateSingleRaceResult(race)} />
+                    </>)
+            }
+        </Container>
+    </>
+}
+export const ResultsD = () => {
+    return <>
+        <Navigation/>
+        <Container>
+            <h2>Cat D Result</h2>
+            <CatGCTable id={'cup-results-d'} title={'Cat D GC'} gc={gcD}/>
+            <CatGreenJerseyTable title={'Cat D Sprint Ranking'} gc={greenJerseyD} />
+            <CatPolkaDotJerseyTable title={'Cat D KOM Ranking'} gc={polkaDotJerseyD} />
+            <h3 id={'cup-by-race'}>VCRT Cup Races</h3>
+            {
+                vcrtCupSeason1.races.filter(r => r.finished).map(race =>
+                    <>
+                        <h4>{race.specification.title}</h4>
+                        <RaceResultTable title={`Cat D`} cat={'D'} raceResult={calculateSingleRaceResult(race)} />
+                    </>)
+            }
+        </Container>
+    </>
+}
+
 

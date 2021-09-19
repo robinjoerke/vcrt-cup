@@ -7,19 +7,19 @@ import _ from "lodash";
 export const Schedule = () => <>
     <Navigation/>
     <Container>
-        <h2>Schedule</h2>{
+        <h2 className={'mt-3'}>Schedule</h2>{
         vcrtCupSeason1.races.map(race => {
 
 
             return <>
-                <h3>{race.specification.title}</h3>
-                <h4>{race.specification.finish.primeCat.toString()} Points at Finish: </h4>
+                <h3 className={'mt-4'}>{race.specification.title}{race.finished ? ' (finished)' : ''}</h3>
+                <h5>{race.specification.finish.primeCat.toString()} Points at Finish: </h5>
 
                 {race.specification.finish.points.map(p => p * (race.specification.finish.factor || 1)).join(', ')}
                 {
                     (race.specification.finish.bonus && race.specification.finish.bonus.length) ? <>with Bonus Seconds: {race.specification.finish.bonus.join(', ')}<br/></> : null
                 }
-                <h4>KOM Points</h4>
+                <h5>KOM Points</h5>
                 {
                     race.specification.primeSpecification.kom.map(kom => {
                         return <>

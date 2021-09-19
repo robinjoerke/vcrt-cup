@@ -5,10 +5,14 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
-import {Results} from "./pages/Results";
+import {
+    ResultsA,
+    ResultsB,
+    ResultsC,
+    ResultsD
+} from "./pages/Results";
 import {Landing} from "./pages/Landing";
 import {Schedule} from "./pages/Schedule";
-import {Navigation} from "./components/Navbar";
 
 export default function App() {
 
@@ -16,8 +20,17 @@ export default function App() {
 
         <Router>
             <Switch>
-                <Route path="/results">
-                    <Results />
+                <Route path="/results-a">
+                    <ResultsA />
+                </Route>
+                <Route path="/results-b">
+                    <ResultsB />
+                </Route>
+                <Route path="/results-c">
+                    <ResultsC />
+                </Route>
+                <Route path="/results-d">
+                    <ResultsD />
                 </Route>
                 <Route path="/schedule">
                     <Schedule />
