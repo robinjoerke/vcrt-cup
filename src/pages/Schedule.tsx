@@ -4,6 +4,10 @@ import {Container} from "react-bootstrap";
 import {vcrtCupSeason1} from "../stores/races/races";
 import _ from "lodash";
 
+function capitalizeFirstLetter(string: string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export const Schedule = () => <>
     <Navigation/>
     <Container>
@@ -13,11 +17,11 @@ export const Schedule = () => <>
 
             return <>
                 <h3 className={'mt-4'}>{race.specification.title}{race.finished ? ' (finished)' : ''}</h3>
-                <h5>{race.specification.finish.primeCat.toString()} Points at Finish: </h5>
+                <h5>{capitalizeFirstLetter(race.specification.finish.primeCat.toString().toLowerCase())} Points at Finish: </h5>
 
                 {race.specification.finish.points.map(p => p * (race.specification.finish.factor || 1)).join(', ')}
                 {
-                    (race.specification.finish.bonus && race.specification.finish.bonus.length) ? <>with Bonus Seconds: {race.specification.finish.bonus.join(', ')}<br/></> : null
+                    (race.specification.finish.bonus && race.specification.finish.bonus.length) ? <> <br/>with Bonus Seconds: {race.specification.finish.bonus.join(', ')}<br/></> : null
                 }
                 <h5>KOM Points</h5>
                 {

@@ -9,5 +9,5 @@ export const Landing = () => <>        <Navigation/>
 
 <p>Whether in D or A+ category, VCRT riders are brought together by a desire to have fun whilst getting stronger, fairly.</p>
 
-<p>To join visit: <a className={'link-warning'} href={'zwiftpower.com/team.php?id=5032'}>zwiftpower.com/team.php?id=5032</a></p>
+<p>To join visit: <a className={'link-secondary'} href={'zwiftpower.com/team.php?id=5032'}>zwiftpower.com/team.php?id=5032</a></p>
 </Container></>;
