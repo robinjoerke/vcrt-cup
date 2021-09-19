@@ -8,12 +8,14 @@ export type RawRaceResult = {
     catBfal: PrimeRawData,
     catCfal: PrimeRawData,
     catDfal: PrimeRawData,
+    finished: boolean;
     specification: {
         title: string;
         finish: {
             primeCat: PrimeCat |'NONE'
             points: number[]
             factor: number
+            bonus?: number[]
         }
         primeSpecification: {
             kom: PrimeSpecification[]
@@ -30,6 +32,7 @@ export type PrimeSpecification = {
     lap: number;
     factor?: number;
     type: PrimeType
+    bonus?: number[]
 }
 
 export type PrimeRawData = {
@@ -67,6 +70,7 @@ export interface RiderRaceResult {
 
 export interface RiderSeriesResult extends RiderRaceResult {
     totalRaces: number;
+    bonusSeconds?: number;
 }
 
 export type RaceSeries = {

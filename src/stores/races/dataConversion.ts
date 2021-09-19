@@ -86,7 +86,8 @@ calculateLeaderBoard(series, 'sprintPoints', 'desc', false);
 
 export const calculateLeaderBoard = (series: RaceSeries, orderBy: keyof RiderSeriesResult, order: 'asc' | 'desc', onlyRidersWhCompletedAllRaces: boolean) => {
     const points = getPoints(series.races);
-    const allFinishedRaces = series.races
+    const bonus =  getTimeBonus(series.races);
+    const allFinishedRaces = series.races.filter(r => r.finished)
 
     let ridersSeriesResults: RiderSeriesResult[] = getRiders(allFinishedRaces)
         .map((rider: number) => {
@@ -105,6 +106,13 @@ export const calculateLeaderBoard = (series: RaceSeries, orderBy: keyof RiderSer
     if(onlyRidersWhCompletedAllRaces){
         ridersSeriesResults =  ridersSeriesResults.filter(x => x.totalRaces === series.finishedRaces);
     }
+    // apply bonus seconds
+    for(let riderResult of ridersSeriesResults){
+        const riderBonus = bonus[riderResult.id] || 0;
+        riderResult.time = riderResult.time - riderBonus;
+        riderResult.bonusSeconds = riderBonus;
+    }
+
     return _.orderBy(
         ridersSeriesResults
         , orderBy, order) as RiderSeriesResult[];
@@ -129,7 +137,8 @@ export function sec2time(sec: number) {
 export const getPoints = (races: RawRaceResult[]) => {
     const komPoints: Record<number, number> = {}  //Record<zwid, points>
     const sprintPoints: Record<number, number> = {}  //Record<zwid, points>
-    const riders = getRiders(races)
+    const allFinishedRaces = races.filter(r => r.finished);
+    const riders = getRiders(allFinishedRaces)
     riders.forEach(r => {
         komPoints[r] = 0;
         sprintPoints[r] = 0;
@@ -147,7 +156,7 @@ export const getPoints = (races: RawRaceResult[]) => {
             dataMap[rider] = dataMap[rider] + points;
         }
     }
-    for (const race of races) {
+    for (const race of allFinishedRaces) {
         for (const cat of ['A', 'B', 'C', 'D'] as Cat[]) {
             race.specification.primeSpecification.kom.forEach(prime => primeHandler(race, prime, cat, "KOM", komPoints))
             race.specification.primeSpecification.sprint.forEach(prime => primeHandler(race, prime, cat, "SPRINT", sprintPoints))
@@ -180,6 +189,48 @@ export const getPoints = (races: RawRaceResult[]) => {
 
 
 }
+
+export const getTimeBonus = (races: RawRaceResult[]) => {
+    const bonus: Record<number, number> = {}  //Record<zwid, points>
+    const allFinishedRaces = races.filter(r => r.finished);
+    const riders = getRiders(allFinishedRaces)
+    riders.forEach(r => {
+        bonus[r] = 0;
+    })
+
+    const bonusHandler = (race: RawRaceResult, prime: PrimeSpecification, cat: Cat, primeCat: PrimeCat, dataMap: Record<number, number>) => {
+        const primeData = getPrimeData(race, prime.type, primeCat, cat, prime.lap, prime.name)
+        if(!primeData || !prime.bonus || prime.bonus.length === 0){
+            return
+        }
+        for (let i = 0; ((i < prime.bonus.length) && (i < primeData.length)); i++) {
+            const rider = primeData[i];
+            const bonusSeconds = prime.bonus[i]
+            dataMap[rider] = dataMap[rider] + bonusSeconds;
+        }
+    }
+    for (const race of allFinishedRaces) {
+        for (const cat of ['A', 'B', 'C', 'D'] as Cat[]) {
+            race.specification.primeSpecification.kom.forEach(prime => bonusHandler(race, prime, cat, "KOM", bonus))
+            race.specification.primeSpecification.sprint.forEach(prime => bonusHandler(race, prime, cat, "SPRINT", bonus))
+
+            //handle finish
+            if(race.specification.finish.bonus ){
+                const finishResult = getFinalResultForCat(race, cat)
+                for (let i = 0; (i < race.specification.finish.bonus.length && (i < finishResult.length)); i++) {
+                    const rider = finishResult[i];
+                    const bonusSeconds = race.specification.finish.bonus[i]
+                    bonus[rider] = bonus[rider] + bonusSeconds;
+                }
+            }
+        }
+    }
+
+    return bonus;
+
+
+}
+
 function getFinalResultForCat(race: RawRaceResult, cat: Cat): number[] {
     return _.orderBy(race.data.filter(x => x.category === cat), 'position_in_cat')
         .map(x => x.zwid) as number[]

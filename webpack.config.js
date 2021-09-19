@@ -58,5 +58,9 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: 'resources/[contenthash].css',
         }),
-    ]
+    ],
+    devServer: {
+        port: 3009,
+        historyApiFallback: true
+    }
 }

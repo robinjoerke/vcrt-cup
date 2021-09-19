@@ -3,36 +3,28 @@ import {race1} from "./raw/race1";
 import {
     calculateGC,
     calculateGreenJersey,
-    calculateLeaderBoard,
     caluclatePolkaDotJersey,
-    formatRiderRaceResult,
-    getRawRiderRaceResult,
-    getRiders,
-    joinRiderRaceResultsToRiderSeriesResult
+    getRiders
 } from "./dataConversion";
 import {
-    Cat,
-    PrimeCat,
-    PrimeType,
     RaceSeries,
-    RawRaceResult,
-    RiderRaceResult,
-    RiderSeriesResult
+    RawRaceResult
 } from "./types";
 import {race2} from "./raw/race2";
-import {race3} from "./raw/race3";
 
-export const defaultFinishPoints = [25,24,23,22,21,20,19,18,17,16,15,14,12,11,10,9,8,7,6,5,4,3,2,1]
+export const defaultFinishPoints = [25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 
 export const races = [
     {
         ...race1,
+        finished: true,
         specification: {
             title: 'Race 1: Watopia foo',
             finish: {
                 primeCat: "SPRINT",
                 points: defaultFinishPoints,
                 factor: 1,
+                bonus: [10, 6, 4]
             },
             primeSpecification: {
                 sprint: [{
@@ -52,6 +44,7 @@ export const races = [
     },
     {
         ...race2,
+        finished: true,
         specification: {
             title: 'Race 2: Watopia bar',
             finish: {
@@ -65,19 +58,41 @@ export const races = [
                     lap: 2,
                     type: 'FAL',
                     factor: 2,
+                    bonus: [3, 2, 1]
+                }],
+                kom: [] as unknown[],
+            }
+        }
+    },
+    {
+        finished: false,
+        specification: {
+            title: 'Race 2: Watopia bar',
+            finish: {
+                primeCat: "SPRINT",
+                points: defaultFinishPoints,
+                factor: 1,
+            },
+            primeSpecification: {
+                sprint: [{
+                    name: 'Watopia Sprint Forward',
+                    lap: 2,
+                    type: 'FAL',
+                    factor: 2,
+                    bonus: [3, 2, 1]
                 }],
                 kom: [] as unknown[],
             }
         }
     }
     //  race2 as RawRaceResult,
- //   race3 as RawRaceResult,
+    //   race3 as RawRaceResult,
 
 ] as RawRaceResult[]
 
 export const vcrtCupSeason1 = {
     totalRaces: 6,
-    finishedRaces: races.length,
+    finishedRaces: races.filter(r => r.finished).length,
     races: races,
     name: 'VCRT Cup Season 1',
 } as RaceSeries
@@ -101,11 +116,5 @@ export const polkaDotJerseyB = polkaDotJersey.filter(x => x.cat === 'B');
 export const polkaDotJerseyC = polkaDotJersey.filter(x => x.cat === 'C');
 export const polkaDotJerseyD = polkaDotJersey.filter(x => x.cat === 'D');
 
-export function writeToWindow() {
-    // @ts-ignore
-    window['gc'] = gc;
-    // @ts-ignore
-    window['riders'] = getRiders(races);
-}
 
 

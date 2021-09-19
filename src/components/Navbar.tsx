@@ -5,16 +5,17 @@ import {
     Navbar,
     NavDropdown
 } from "react-bootstrap";
+import {Link} from "react-router-dom";
 
 export const Navigation = () => <>
     <Navbar bg={'warning'} expand="md">
         <Container>
-            <Navbar.Brand href="#home">VCRT</Navbar.Brand>
+            <Navbar.Brand><Link to="/">VCRT</Link></Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
                     <Nav.Link href="#home">About VCRT</Nav.Link>
-                    <Nav.Link href="#cup">VCRT Cup</Nav.Link>
+                    <Nav.Link><Link to="/schedule">VCRT Cup</Link></Nav.Link>
                     <NavDropdown title="Results" id="basic-nav-dropdown">
                         <NavDropdown.Item href="#cup-results-a">Cat A</NavDropdown.Item>
                         <NavDropdown.Item href="#cup-results-b">Cat B</NavDropdown.Item>
