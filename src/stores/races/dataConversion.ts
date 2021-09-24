@@ -11,21 +11,26 @@ import {
     RiderSeriesResult
 } from "./types";
 import * as _ from 'lodash';
+import {
+    isUndefined,
+    orderBy
+} from 'lodash';
 
 
 export const getRawRiderRaceResult = (data: RawRaceResult, rider: number) => {
     const result = data.data.filter(x => (x.zwid === rider));
-    //console.log('getRawRiderRaceResult', result)
     if (result.length === 0) {
         return null;
     }
     return result[0]
 }
-export const formatRiderRaceResult = (data: RawRiderRaceResult) => {
+export const formatRiderRaceResult = (data: RawRiderRaceResult, race?: RawRiderRaceResult[], secondRule?: number) => {
+
     return {
         id: data.zwid,
         name: data.name,
         time: data.time_gun,
+        gcTime: data.time_gun,
         gap: data.gap,
         sprintPoints: 0,
         komPoints: 0,
@@ -34,12 +39,47 @@ export const formatRiderRaceResult = (data: RawRiderRaceResult) => {
         position_in_cat: data.position_in_cat
     } as RiderRaceResult
 }
+export const injectGCTimeToRiderRaceResult = (race: RiderRaceResult[], secondRule?: number) => {
+
+    return orderBy(race, 'time')
+        .map((data, index, array) => {
+            let gcTime = data.time;
+            let prevRider = undefined;
+            if (race && secondRule && index > 0) {
+                prevRider = array[index-1]/*race?.filter(rrr => rrr.cat === data.cat)
+                    .filter(rrr => rrr.position_in_cat === ((data.position_in_cat as number) - 1))*/
+/*                if (prevRider.length === 1) {
+                    prevRider = prevRider[0]
+                } else {
+                    prevRider = undefined;
+                }*/
+            }
+
+            if (!isUndefined(prevRider)) {
+                const acceptableTime: number = prevRider.time as number + secondRule;
+                if ((data.time as number) <= acceptableTime) {
+                    gcTime = prevRider.gcTime;
+                    data.gcTime = gcTime;
+                    console.log('rider ', data, ' gets gc time from rider', prevRider, gcTime)
+                    if(isUndefined(gcTime)){
+                        console.error('prev rider had no gctime')
+                    }
+
+                }
+
+            }
+            const result = {...data}
+            result.gcTime = gcTime;
+            return result;
+        }) as RiderRaceResult[]
+}
 export const joinRiderRaceResultsToRiderSeriesResult = (raceResults: RiderRaceResult[]) => {
     const seriesResult = raceResults.reduce((r1, r2) => {
         return {
             id: r1.id || r2.id,
             name: r1.name || r2.name,
             time: r1.time + r2.time,
+            gcTime: r1.gcTime + r2.gcTime,
             sprintPoints: r1.sprintPoints + r2.sprintPoints,
             komPoints: r1.komPoints + r2.komPoints,
             dq: r1.dq + r2.dq,
@@ -47,6 +87,7 @@ export const joinRiderRaceResultsToRiderSeriesResult = (raceResults: RiderRaceRe
         }
     }, {
         time: 0,
+        gcTime: 0,
         sprintPoints: 0,
         komPoints: 0,
         cat: null,
@@ -76,38 +117,57 @@ export const labelToCat: (label: string) => Cat = (label: string) => {
 }
 
 export const calculateSingleRaceResult = (race: RawRaceResult) =>
-calculateLeaderBoard({races: [race], totalRaces: 1, finishedRaces: 1}, 'position_in_cat', 'asc', true);
+    calculateLeaderBoard({races: [race], totalRaces: 1, finishedRaces: 1}, 'position_in_cat', 'asc', true);
 export const calculateGC = (series: RaceSeries) =>
-calculateLeaderBoard(series, 'time', 'asc', true);
+    calculateLeaderBoard(series, 'time', 'asc', true);
 export const calculateGreenJersey = (series: RaceSeries) =>
-calculateLeaderBoard(series, 'sprintPoints', 'desc', false);
+    calculateLeaderBoard(series, 'sprintPoints', 'desc', false);
 export const caluclatePolkaDotJersey = (series: RaceSeries) =>
-calculateLeaderBoard(series, 'sprintPoints', 'desc', false);
+    calculateLeaderBoard(series, 'sprintPoints', 'desc', false);
 
 export const calculateLeaderBoard = (series: RaceSeries, orderBy: keyof RiderSeriesResult, order: 'asc' | 'desc', onlyRidersWhCompletedAllRaces: boolean) => {
     const points = getPoints(series.races);
-    const bonus =  getTimeBonus(series.races);
+    const bonus = getTimeBonus(series.races);
     const allFinishedRaces = series.races.filter(r => r.finished)
+/*    const allFinishedRacesWithInjectedGC = allFinishedRaces.map(race => {
+            return injectGCTimeToRiderRaceResult(
+
+                race.data.map( subrider => getRawRiderRaceResult(race, subrider.zwid as number))
+                    .map(r => formatRiderRaceResult(r))
+
+                , race.specification.finish.timeGapRule
+
+            );
+        });*/
 
     let ridersSeriesResults: RiderSeriesResult[] = getRiders(allFinishedRaces)
         .map((rider: number) => {
-            const riderRaces = allFinishedRaces
-                    .map(race => getRawRiderRaceResult(race, rider))
-                    .filter(Boolean)
-                    .map(r => formatRiderRaceResult(r))
-                /*.filter(x => x.dq === '')*/;
-            console.log('riderRaces', riderRaces)
+            const riderRaces =
+                    allFinishedRaces
+                        .map(race => {
+                            return injectGCTimeToRiderRaceResult(
+
+                                race.data.map( subrider => getRawRiderRaceResult(race, subrider.zwid as number))
+                                    .map(r => formatRiderRaceResult(r))
+
+                                , race.specification.finish.timeGapRule
+
+                            ).find(x => x.id == rider);
+                        })
+                        .filter(Boolean)
+                ;
+            /*.filter(x => x.dq === '')*/
+
             const riderSeriesResult = joinRiderRaceResultsToRiderSeriesResult(riderRaces);
             riderSeriesResult.komPoints = points.kom[riderSeriesResult.id]
             riderSeriesResult.sprintPoints = points.sprint[riderSeriesResult.id]
             return riderSeriesResult as RiderSeriesResult;
         });
-    console.log('series result', ridersSeriesResults);
-    if(onlyRidersWhCompletedAllRaces){
-        ridersSeriesResults =  ridersSeriesResults.filter(x => x.totalRaces === series.finishedRaces);
+    if (onlyRidersWhCompletedAllRaces) {
+        ridersSeriesResults = ridersSeriesResults.filter(x => x.totalRaces === series.finishedRaces);
     }
     // apply bonus seconds
-    for(let riderResult of ridersSeriesResults){
+    for (let riderResult of ridersSeriesResults) {
         const riderBonus = bonus[riderResult.id] || 0;
         riderResult.time = riderResult.time - riderBonus;
         riderResult.bonusSeconds = riderBonus;
@@ -119,7 +179,7 @@ export const calculateLeaderBoard = (series: RaceSeries, orderBy: keyof RiderSer
 }
 
 export function sec2time(sec: number) {
-    const prefix = sec < 0 ? '-': ''
+    const prefix = sec < 0 ? '-' : ''
 
     const timeInSeconds = sec < 0 ? -sec : sec;
     const pad = function (num: number, size: number) {
@@ -146,7 +206,7 @@ export const getPoints = (races: RawRaceResult[]) => {
 
     const primeHandler = (race: RawRaceResult, prime: PrimeSpecification, cat: Cat, primeCat: PrimeCat, dataMap: Record<number, number>) => {
         const primeData = getPrimeData(race, prime.type, primeCat, cat, prime.lap, prime.name)
-        if(!primeData){
+        if (!primeData) {
             return
         }
 
@@ -162,7 +222,7 @@ export const getPoints = (races: RawRaceResult[]) => {
             race.specification.primeSpecification.sprint.forEach(prime => primeHandler(race, prime, cat, "SPRINT", sprintPoints))
 
             //handle finish
-            if(race.specification.finish.primeCat !== "NONE"){
+            if (race.specification.finish.primeCat !== "NONE") {
                 const finishResult = getFinalResultForCat(race, cat)
                 for (let i = 0; (i < race.specification.finish.points.length && (i < finishResult.length)); i++) {
                     const rider = finishResult[i];
@@ -177,11 +237,6 @@ export const getPoints = (races: RawRaceResult[]) => {
     }
 
 
-
-        console.log('points', {
-            kom: komPoints,
-            sprint: sprintPoints
-        })
     return {
         kom: komPoints,
         sprint: sprintPoints
@@ -200,7 +255,7 @@ export const getTimeBonus = (races: RawRaceResult[]) => {
 
     const bonusHandler = (race: RawRaceResult, prime: PrimeSpecification, cat: Cat, primeCat: PrimeCat, dataMap: Record<number, number>) => {
         const primeData = getPrimeData(race, prime.type, primeCat, cat, prime.lap, prime.name)
-        if(!primeData || !prime.bonus || prime.bonus.length === 0){
+        if (!primeData || !prime.bonus || prime.bonus.length === 0) {
             return
         }
         for (let i = 0; ((i < prime.bonus.length) && (i < primeData.length)); i++) {
@@ -215,7 +270,7 @@ export const getTimeBonus = (races: RawRaceResult[]) => {
             race.specification.primeSpecification.sprint.forEach(prime => bonusHandler(race, prime, cat, "SPRINT", bonus))
 
             //handle finish
-            if(race.specification.finish.bonus ){
+            if (race.specification.finish.bonus) {
                 const finishResult = getFinalResultForCat(race, cat)
                 for (let i = 0; (i < race.specification.finish.bonus.length && (i < finishResult.length)); i++) {
                     const rider = finishResult[i];

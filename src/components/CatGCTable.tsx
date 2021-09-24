@@ -9,7 +9,7 @@ import React from "react";
 export const CatGCTable = (props: { title: string, gc: RiderSeriesResult[], id?: string }) => {
     let leaderTime = 0;
     if (props.gc.length > 0) {
-        leaderTime = props.gc[0].time;
+        leaderTime = props.gc[0].gcTime;
     }
 
 
@@ -33,8 +33,8 @@ export const CatGCTable = (props: { title: string, gc: RiderSeriesResult[], id?:
                     <tr>
                         <th scope={"row"}>{i + 1}</th>
                         <td dangerouslySetInnerHTML={{__html: riderRaceResult.name}}/>
-                        <td>{sec2time(riderRaceResult.time)}</td>
-                        <td>{riderRaceResult.time === leaderTime ? '-' : sec2time(riderRaceResult.time - leaderTime)}</td>
+                        <td>{sec2time(riderRaceResult.gcTime)}</td>
+                        <td>{riderRaceResult.gcTime === leaderTime ? '-' : sec2time(riderRaceResult.gcTime - leaderTime)}</td>
                         <td>{riderRaceResult.bonusSeconds ? `${riderRaceResult.bonusSeconds} sec` : '-'}</td>
                         <td>{riderRaceResult.sprintPoints}</td>
                         <td>{riderRaceResult.komPoints}</td>

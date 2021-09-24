@@ -23,6 +23,7 @@ export const RaceResultTable = (props: { title: string, raceResult: RiderRaceRes
                 <th>Name</th>
                 <th>Time</th>
                 <th>time to leader</th>
+                <th>time for gc</th>
                 <th>Sprint Points</th>
                 <th>Kom Points</th>
             </tr>
@@ -36,6 +37,7 @@ export const RaceResultTable = (props: { title: string, raceResult: RiderRaceRes
                         <td dangerouslySetInnerHTML={{__html: riderRaceResult.name}}/>
                         <td>{sec2time(riderRaceResult.time)}</td>
                         <td>{riderRaceResult.time === leaderTime ? '-' : sec2time(riderRaceResult.time - leaderTime)}</td>
+                        <td>{sec2time(riderRaceResult.gcTime)}</td>
                         <td>{riderRaceResult.sprintPoints}</td>
                         <td>{riderRaceResult.komPoints}</td>
                     </tr>

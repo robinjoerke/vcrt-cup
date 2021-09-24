@@ -23,7 +23,8 @@ export const races = [
                 primeCat: "SPRINT",
                 points: defaultFinishPoints,
                 factor: 1,
-                bonus: [10, 6, 4]
+                bonus: [10, 6, 4],
+                timeGapRule: 3,
             },
             primeSpecification: {
                 sprint: [{
@@ -50,6 +51,7 @@ export const races = [
                 primeCat: "SPRINT",
                 points: defaultFinishPoints,
                 factor: 1,
+                timeGapRule: 3,
             },
             primeSpecification: {
                 sprint: [{
@@ -71,6 +73,7 @@ export const races = [
                 primeCat: "SPRINT",
                 points: defaultFinishPoints,
                 factor: 1,
+                timeGapRule: 3,
             },
             primeSpecification: {
                 sprint: [{

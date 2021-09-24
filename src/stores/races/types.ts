@@ -16,6 +16,7 @@ export type RawRaceResult = {
             points: number[]
             factor: number
             bonus?: number[]
+            timeGapRule?: number,
         }
         primeSpecification: {
             kom: PrimeSpecification[]
@@ -61,6 +62,7 @@ export interface RiderRaceResult {
     id: number;
     name: string;
     time: number;
+    gcTime: number;
     sprintPoints: number;
     komPoints: number;
     dq: string;
