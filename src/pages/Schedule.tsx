@@ -16,13 +16,19 @@ export const Schedule = () => <>
 
 
             return <>
-                <h3 className={'mt-4'}>{race.specification.title}{race.finished ? ' (finished)' : ''}</h3>
-                <h5>{capitalizeFirstLetter(race.specification.finish.primeCat.toString().toLowerCase())} Points at Finish: </h5>
+            <h3 className={'mt-4'}>{race.specification.title}{race.finished ? ' (finished)' : ''}</h3>
+            <h5>{capitalizeFirstLetter(race.specification.finish.primeCat.toString().toLowerCase())} Points at
+                Finish: </h5>
 
-                {race.specification.finish.points.map(p => p * (race.specification.finish.factor || 1)).join(', ')}
-                {
-                    (race.specification.finish.bonus && race.specification.finish.bonus.length) ? <> <br/>with Bonus Seconds: {race.specification.finish.bonus.join(', ')}<br/></> : null
-                }
+            {race.specification.finish.points.map(p => p * (race.specification.finish.factor || 1)).join(', ')}
+            {
+                (race.specification.finish.bonus && race.specification.finish.bonus.length) ? <> <br/>with Bonus
+                    Seconds: {race.specification.finish.bonus.join(', ')}<br/></> : null
+            }
+            <br/>
+                { race.specification.finish.timeGapRule ?
+                    `GC: new time after ${race.specification.finish.timeGapRule} second gap`
+                    : `GC: exact time` }
                 <h5>KOM Points</h5>
                 {
                     race.specification.primeSpecification.kom.map(kom => {
@@ -30,8 +36,8 @@ export const Schedule = () => <>
                             Kom: {kom.name} <br/>
                             Lap: {kom.lap}<br/>
                             Points: {
-                                _.range(10,0, -1).map( p => p* kom.factor).join(', ')
-                                }<br/>
+                            _.range(10, 0, -1).map(p => p * kom.factor).join(', ')
+                        }<br/>
                             {
                                 (kom.bonus && kom.bonus.length) ? <>Bonus Seconds: {kom.bonus.join(', ')}<br/></> : null
                             }
@@ -45,17 +51,19 @@ export const Schedule = () => <>
                             Sprint: {sprint.name} <br/>
                             Lap: {sprint.lap}<br/>
                             Points: {
-                            _.range(10,0, -1).map( p => p* sprint.factor).join(', ')
+                            _.range(10, 0, -1).map(p => p * sprint.factor).join(', ')
                         }<br/>
                             {
-                                (sprint.bonus && sprint.bonus.length) ? <>Bonus Seconds: {sprint.bonus.join(', ')}<br/></> : null
+                                (sprint.bonus && sprint.bonus.length) ? <>Bonus
+                                    Seconds: {sprint.bonus.join(', ')}<br/></> : null
                             }
                         </>
                     })
                 }
 
             </>
-        })
-    }
-    </Container>
-</>;
+            })
+            }
+            </Container>
+        </>
+            ;

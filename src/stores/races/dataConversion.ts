@@ -129,7 +129,7 @@ export const calculateLeaderBoard = (series: RaceSeries, orderBy: keyof RiderSer
     const points = getPoints(series.races);
     const bonus = getTimeBonus(series.races);
     const allFinishedRaces = series.races.filter(r => r.finished)
-/*    const allFinishedRacesWithInjectedGC = allFinishedRaces.map(race => {
+    const allFinishedRacesWithInjectedGC = allFinishedRaces.map(race => {
             return injectGCTimeToRiderRaceResult(
 
                 race.data.map( subrider => getRawRiderRaceResult(race, subrider.zwid as number))
@@ -137,22 +137,15 @@ export const calculateLeaderBoard = (series: RaceSeries, orderBy: keyof RiderSer
 
                 , race.specification.finish.timeGapRule
 
-            );
-        });*/
+            ).filter(Boolean);
+        });
 
     let ridersSeriesResults: RiderSeriesResult[] = getRiders(allFinishedRaces)
         .map((rider: number) => {
             const riderRaces =
-                    allFinishedRaces
+                    allFinishedRacesWithInjectedGC
                         .map(race => {
-                            return injectGCTimeToRiderRaceResult(
-
-                                race.data.map( subrider => getRawRiderRaceResult(race, subrider.zwid as number))
-                                    .map(r => formatRiderRaceResult(r))
-
-                                , race.specification.finish.timeGapRule
-
-                            ).find(x => x.id == rider);
+                            return race.find(x => x.id == rider);
                         })
                         .filter(Boolean)
                 ;
