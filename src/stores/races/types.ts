@@ -11,6 +11,15 @@ export type RawRaceResult = {
     finished: boolean;
     specification: {
         title: string;
+        type?: string;
+        description?: string[];
+        date?: string;
+        distance?: string;
+        elevation?: string;
+        routeLink?: string;
+        raceZwiftID?: string;
+        zwiftSecret?: string;
+        imageURL?: string;
         finish: {
             primeCat: PrimeCat |'NONE'
             points: number[]
@@ -33,7 +42,8 @@ export type PrimeSpecification = {
     lap: number;
     factor?: number;
     type: PrimeType
-    bonus?: number[]
+    bonus?: number[],
+    note?: string;
 }
 
 export type PrimeRawData = {
