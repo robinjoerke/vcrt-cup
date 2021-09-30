@@ -13,6 +13,7 @@ import {
 } from "./pages/Results";
 import {Landing} from "./pages/Landing";
 import {Schedule} from "./pages/Schedule";
+import {Rules} from "./pages/Rules";
 
 export default function App() {
 
@@ -34,6 +35,9 @@ export default function App() {
                 </Route>
                 <Route path="/schedule">
                     <Schedule />
+                </Route>
+                <Route path="/rules">
+                    <Rules />
                 </Route>
                 <Route path="/">
                     <Landing />
