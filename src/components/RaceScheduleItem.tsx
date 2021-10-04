@@ -107,6 +107,12 @@ export const RaceScheduleItem = ({race}: {race: RawRaceResult}) =>
                     race.specification.imageURL ? <Image src={race.specification.imageURL} fluid/> : null
 
                 }
+                {
+                    race.specification.imageURL ? <p className="text-center">
+                        Map provided by <a href={'https://zwifthacks.com/'} className={'link-secondary'}>ZwiftHacks</a>
+                    </p> : null
+
+                }
             </Col>
         </Row>
 

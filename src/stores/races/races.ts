@@ -1,4 +1,10 @@
 import {race1} from "./raw/race1";
+const bologna = require('../../../img/maps/bologna_tt.svg');
+const outAndBack = require('../../../img/maps/watopia_out_and_back_again.svg');
+const tireBouchon = require('../../../img/maps/france_tire_bouchon.svg');
+const triple_loops = require('../../../img/maps/london_triple_loops.svg');
+const wbr_climbing = require('../../../img/maps/watopia_wbr_climbing_series.svg');
+const nyc_kom = require('../../../img/maps/new_york_nyc_kom_after_party.svg');
 
 import {
     calculateGC,
@@ -31,7 +37,7 @@ export const races = [
             routeLink: 'https://zwiftinsider.com/route/time-trial-lap/',
             raceZwiftID: '2306467',
             zwiftSecret: '688a35cb271cdb3dabe6',
-            imageURL: 'https://zwifthacks.com/app/routes/svg/route/?world=6&route=0&showprofile=1&showlegend=1',
+            imageURL: bologna,
             finish: {
                 primeCat: "NONE",
                 points: [],
@@ -62,7 +68,7 @@ export const races = [
             routeLink: 'https://zwiftinsider.com/route/out-and-back-again/',
             raceZwiftID: '2306471',
             zwiftSecret: '688a35cb271cdb3dabe6',
-            imageURL: 'https://zwifthacks.com/app/routes/svg/route/?world=1&route=35&showprofile=1&showlegend=1',
+            imageURL: outAndBack,
             finish: {
                 primeCat: "SPRINT",
                 points: [30, 25, 22, 19, 17, 15, 13, 11, 9, 7, 6, 5, 4, 3, 2],
@@ -108,7 +114,7 @@ export const races = [
             routeLink: 'https://zwiftinsider.com/route/tire-bouchon/',
             raceZwiftID: '2306472',
             zwiftSecret: '688a35cb271cdb3dabe6',
-            imageURL: 'https://zwifthacks.com/app/routes/svg/route/?world=10&route=5&showprofile=1&showlegend=1',
+            imageURL: tireBouchon,
             description: [
                 'With A/B finishing at Marina Sprint and B/C at Ballon Sprint today is surely one for the Sprinters. However it won\'t be an easy day, as this stage begins with a bang and an unclassified climb straight out the neutral zone. From here the sprinters will have their chances but also have to be on-guard. Whilst the Cat 4 Aqueduct KOM wont trouble most, the Cat 2 Petit KOM, roughly halfway through today\'s stage, could spell trouble for the fast men and women. Will this climb see a break try their luck to go long for the finish and spoil the sprinters day?!',
                 'Directeur Sportif Notes: Cat A/B finish at the Marina Sprint (approx 57.2km) B/C at Ballon Sprint (approx 40.2km) no-one climbs the petit KOM for a second time. So get those sprint-trains prepped!'
@@ -183,7 +189,7 @@ export const races = [
             routeLink: 'https://zwiftinsider.com/route/triple-loops/',
             raceZwiftID: '2306474',
             zwiftSecret: '688a35cb271cdb3dabe6',
-            imageURL: 'https://zwifthacks.com/app/routes/svg/route/?world=3&route=10&showprofile=1&showlegend=1',
+            imageURL: triple_loops,
             finish: {
                 primeCat: "SPRINT",
                 points: [30, 25, 22, 19, 17, 15, 13, 11, 9, 7, 6, 5, 4, 3, 2],
@@ -222,7 +228,7 @@ export const races = [
             routeLink: 'https://zwiftinsider.com/route/wbr-climbing-series/',
             raceZwiftID: '2306475',
             zwiftSecret: '688a35cb271cdb3dabe6',
-            imageURL: 'https://zwifthacks.com/app/routes/svg/route/?world=1&route=20&showprofile=1&showlegend=1',
+            imageURL: wbr_climbing,
             finish: {
                 primeCat: "KOM",
                 points: [20, 15, 12, 10, 8, 4, 2],
@@ -261,7 +267,7 @@ export const races = [
             routeLink: 'https://zwiftinsider.com/route/nyc-kom-after-party/',
             raceZwiftID: '2306476',
             zwiftSecret: '688a35cb271cdb3dabe6',
-            imageURL: 'https://zwifthacks.com/app/routes/svg/route/?world=4&route=23&showprofile=1&showlegend=1',
+            imageURL: nyc_kom,
             finish: {
                 primeCat: "KOM",
                 points: [5, 3, 2, 1],

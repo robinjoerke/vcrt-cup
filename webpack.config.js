@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 var MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
 
 var isProduction =  process.argv.indexOf('-p') >= 0 || process.env.NODE_ENV === 'production';
 
@@ -55,7 +56,7 @@ module.exports = {
         ],
     },
     output: {
-        filename: '[name].[contenthash].js',
+        filename: 'resources/[name].[contenthash].js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
         assetModuleFilename: 'resources/[hash][ext][query]'
@@ -63,7 +64,7 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: path.join(__dirname, 'src', 'index.html'),
-            favicon: "./icon/icon512x512.png"
+            favicon: "./img/icon/icon512x512.png"
         }),
 
         new MiniCssExtractPlugin({
@@ -72,6 +73,7 @@ module.exports = {
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': isProduction ? JSON.stringify('production'):  JSON.stringify('development')
         }),
+        new CompressionPlugin(),
     ],
     devServer: {
         port: 3009,
