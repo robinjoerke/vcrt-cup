@@ -22,7 +22,7 @@ export const defaultFinishPoints = [25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 
 export const races = [
     {
         ...race1,
-        finished: false,
+        finished: true,
         specification: {
             title: 'Bologna Time Trial Lap',
             date: 'Oct 6th 19:30 CET',
