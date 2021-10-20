@@ -53,7 +53,7 @@ export const races = [
     },
     {
         ...race2,
-        finished: false,
+        finished: true,
         specification: {
             title: 'Watopia/Out And Back Again',
             date: 'Oct 13th 19:30 CET',
