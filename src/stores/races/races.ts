@@ -16,6 +16,7 @@ import {
     RawRaceResult
 } from "./types";
 import {race2} from "./raw/race2";
+import {race3} from "./raw/race3";
 
 export const defaultFinishPoints = [25, 24, 23, 22, 21, 20, 19, 18, 17, 16, 15, 14, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1]
 
@@ -78,19 +79,19 @@ export const races = [
             },
             primeSpecification: {
                 sprint: [{
-                    name: 'Fuego Sprint Forward',
+                    name: 'Fuego Flats Short',
                     lap: 1,
                     type: 'FAL',
                     factor: 2,
                 },
                     {
-                        name: 'Watopia Sprin',
+                        name: 'Watopia Sprint Forward',
                         lap: 1,
                         type: 'FAL',
                         factor: 2,
                     }],
                 kom: [{
-                    name: 'Volcano KOM',
+                    name: 'Volcano Climb',
                     lap: 1,
                     type: 'FAL',
                     factor: 1,
@@ -104,7 +105,8 @@ export const races = [
         }
     },
     {
-        finished: false,
+        ...race3,
+        finished: true,
         specification: {
             title: 'France/Tire-Bouchon',
             date: 'Oct 20th 19:30 CET',
@@ -128,19 +130,13 @@ export const races = [
             },
             primeSpecification: {
                 sprint: [{
-                    name: 'Marina Sprint Reverse',
+                    name: 'Marina Sprint',
                     lap: 1,
                     type: 'FAL',
                     factor: 2,
                 },
                     {
-                        name: 'Pavé Sprint Reverse',
-                        lap: 1,
-                        type: 'FAL',
-                        factor: 2,
-                    },
-                    {
-                        name: 'Watopia Sprint Forward',
+                        name: 'Pave Sprint Rev',
                         lap: 1,
                         type: 'FAL',
                         factor: 2,
@@ -153,14 +149,14 @@ export const races = [
                         note: '(A/B only)'
                     },
                     {
-                        name: 'Pavé Sprint',
+                        name: 'Pave Sprint',
                         lap: 1,
                         type: 'FAL',
                         factor: 2,
                         note: '(A/B only)'
                     }],
                 kom: [{
-                    name: 'Aqueduct KOM Reverse',
+                    name: 'Aqueduc KOM Rev',
                     lap: 1,
                     type: 'FAL',
                     factor: 1,
@@ -231,7 +227,7 @@ export const races = [
             imageURL: wbr_climbing,
             finish: {
                 primeCat: "KOM",
-                points: [20, 15, 12, 10, 8, 4, 2],
+                points: [40, 30, 25, 22, 19, 17, 15, 13, 11, 9, 7, 5, 3, 2, 1],
                 factor: 1,
                 timeGapRule: 1,
                 bonus: [5, 3, 1],
@@ -244,10 +240,10 @@ export const races = [
                     factor: 2,
                 }],
                 kom: [{
-                    name: 'Epic KOM',
+                    name: 'Watopia Epic KOM Forward',
                     lap: 1,
                     type: 'FAL',
-                    factor: 2,
+                    factor: 3,
                 }],
             }
         }
