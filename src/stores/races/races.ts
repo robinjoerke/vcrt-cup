@@ -11,6 +11,7 @@ import {
     calculateGreenJersey,
     caluclatePolkaDotJersey
 } from "./dataConversion";
+import {race4} from "./raw/race4";
 import {
     RaceSeries,
     RawRaceResult
@@ -171,7 +172,8 @@ export const races = [
         }
     },
     {
-        finished: false,
+        ...race4,
+        finished: true,
         specification: {
             title: 'London/Triple Loops',
             date: 'Oct 27th 19:30 CET',
