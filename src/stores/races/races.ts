@@ -197,13 +197,13 @@ export const races = [
             },
             primeSpecification: {
                 sprint: [{
-                    name: 'The Mall Sprint',
+                    name: 'The Mall Sprint Reverse',
                     lap: 1,
                     type: 'FAL',
                     factor: 2,
                 }],
                 kom: [{
-                    name: 'Leith Hill',
+                    name: 'London Leith Hill',
                     lap: 1,
                     type: 'FAL',
                     factor: 2,
