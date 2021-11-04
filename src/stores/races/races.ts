@@ -12,6 +12,7 @@ import {
     caluclatePolkaDotJersey
 } from "./dataConversion";
 import {race4} from "./raw/race4";
+import {race5} from "./raw/race5";
 import {
     RaceSeries,
     RawRaceResult
@@ -212,7 +213,8 @@ export const races = [
         }
     },
     {
-        finished: false,
+        ...race5,
+        finished: true,
         specification: {
             title: 'Watopia/WBR Climbing Series',
             date: ' Nov 3rd 19:30 CET',
