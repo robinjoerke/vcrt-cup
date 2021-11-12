@@ -13,6 +13,7 @@ import {
 } from "./dataConversion";
 import {race4} from "./raw/race4";
 import {race5} from "./raw/race5";
+import {race6} from "./raw/race6";
 import {
     RaceSeries,
     RawRaceResult
@@ -253,7 +254,8 @@ export const races = [
         }
     },
     {
-        finished: false,
+        ...race6,
+        finished: true,
         specification: {
             title: ' New York/NYC KOM After Party',
             date: ' Nov 10th 19:30 CET',
@@ -294,12 +296,7 @@ export const races = [
                         type: 'FAL',
                         factor: 2,
                     }],
-                kom: [{
-                    name: 'Epic KOM',
-                    lap: 1,
-                    type: 'FAL',
-                    factor: 2,
-                }],
+                kom: [],
             }
         }
     }

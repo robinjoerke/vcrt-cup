@@ -123,7 +123,7 @@ export const calculateGC = (series: RaceSeries) =>
 export const calculateGreenJersey = (series: RaceSeries) =>
     calculateLeaderBoard(series, 'sprintPoints', 'desc', false);
 export const caluclatePolkaDotJersey = (series: RaceSeries) =>
-    calculateLeaderBoard(series, 'sprintPoints', 'desc', false);
+    calculateLeaderBoard(series, 'komPoints', 'desc', false);
 
 export const calculateLeaderBoard = (series: RaceSeries, orderBy: keyof RiderSeriesResult, order: 'asc' | 'desc', onlyRidersWhCompletedAllRaces: boolean) => {
     const points = getPoints(series.races);
