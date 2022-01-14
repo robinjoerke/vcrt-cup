@@ -60,7 +60,7 @@ export const injectGCTimeToRiderRaceResult = (race: RiderRaceResult[], secondRul
                 if ((data.time as number) <= acceptableTime) {
                     gcTime = prevRider.gcTime;
                     data.gcTime = gcTime;
-                    console.log('rider ', data, ' gets gc time from rider', prevRider, gcTime)
+                    // console.log('rider ', data, ' gets gc time from rider', prevRider, gcTime)
                     if(isUndefined(gcTime)){
                         console.error('prev rider had no gctime')
                     }
@@ -293,7 +293,7 @@ function getPrimeData(race: RawRaceResult, type: PrimeType, primeCat: PrimeCat, 
         .filter(x => x.lap === lap)
         .filter(x => x.name.toLowerCase() === name.toLowerCase());
     if (primeResultRawArray.length !== 1) {
-        console.error('expected to find one result', race.specification.title, type, primeCat, cat, lap, name, primeResultRawArray.length, `cat${cat}${type.toLowerCase()}`)
+        // console.error('expected to find one result', race.specification.title, type, primeCat, cat, lap, name, primeResultRawArray.length, `cat${cat}${type.toLowerCase()}`)
         return undefined;
     }
     const primeResultRaw = primeResultRawArray[0]

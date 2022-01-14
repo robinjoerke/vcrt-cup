@@ -2,14 +2,15 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {Navigation} from "../components/Navbar";
 import {Container} from "react-bootstrap";
+import {WithClonedStyles} from "../components/news/WithClonedStyles";
 import {races} from "../stores/races/races";
 import {RaceScheduleItem} from "../components/RaceScheduleItem";
 
 const nextRace = races.filter(r => !r.finished).shift();
 
+
 export const Landing = () => <>        <Navigation/>
     <Container>
-        <h2></h2>
         <p>Vicious Cycle Race Team (VCRT) is an established e-racing team, formed to bring together like minded Zwift
             racers. We enjoy e-racing and love to win, but we also use it as a tool to boost our real-world performance
             whilst having fun. We take pride in honest racing and take transparency seriously. </p>

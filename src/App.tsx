@@ -5,6 +5,7 @@ import {
     Switch,
     Route,
 } from "react-router-dom";
+import {News} from "./pages/News";
 import {
     ResultsA,
     ResultsB,
@@ -39,9 +40,13 @@ export default function App() {
                 <Route path="/rules">
                     <Rules />
                 </Route>
+                <Route path="/news">
+                    <News />
+                </Route>
                 <Route path="/">
                     <Landing />
                 </Route>
+
             </Switch>
         </Router>
     </>
